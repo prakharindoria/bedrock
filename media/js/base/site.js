@@ -172,7 +172,7 @@
         // Add class to reflect the microprocessor architecture info
         var archType = window.site.archType = window.site.getArchType();
         var archSize = window.site.archSize = window.site.getArchSize();
-        var isARM = archType.match(/armv(\d+)/);
+        var isARM = window.site.isARM = archType.match(/armv(\d+)/);
 
         if (archType !== 'x86') {
             h.className = h.className.replace('x86', archType);
