@@ -22,4 +22,3 @@ class FirefoxMobilePage(BasePage):
     @property
     def is_firefox_qr_code_displayed(self):
         return self.is_element_displayed(*self._get_firefox_qr_code_locator)
-
