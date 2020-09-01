@@ -25,8 +25,8 @@
     <img class="c-item-gif" src="{{ src }}">
     <ul class="c-item-share">
       <!-- TODO: GA props -->
-      <li><a class="c-item-link js-twitter-share" target="_blank" rel="noopener noreferrer" href="{{ tw }}" data-link-type="social share" data-link-name="Twitter"><span class="c-item-icon twitter"></span><span class="c-item-text">Share</span></a></li>
-      <li><a class="c-item-link" href="{{ src }}" download><span class="c-item-icon download"></span><span class="c-item-text">Download GIF</span></a></li>
+      <li><a class="c-item-link js-twitter-share" target="_blank" rel="noopener noreferrer" href="{{ tw }}"><span class="c-item-icon twitter"></span><span class="c-item-text">Share</span></a></li>
+      <li><a class="c-item-link js-download-gif" href="{{ src }}" download><span class="c-item-icon download"></span><span class="c-item-text">Download GIF</span></a></li>
       <li><button class="c-item-link js-copy-link" type="button" data-clipboard-text="{{ request.META.HTTP_HOST }} + {{ src }}"><span class="c-item-icon link"></span><span class="c-item-text">Copy Link to GIF</span></button></li>
     </ul>
   </div>
@@ -193,7 +193,7 @@
       src=static('img/firefox/campaign/unfck/kermit.gif'),
       include_cta=True
       ) %}
-      <img src="{{ static('img/firefox/campaign/unfck/share/gifpagegiphy.png') }}">
+      <img src="{{ static('img/firefox/campaign/unfck/share/gifpagegiph.png') }}">
       <a class="mzp-c-cta-link" href="https://giphy.com/gifs/MozillaFoundation-transparent-f6tT6oBAAXQDk0ueab">Brings user: the gif page on GIPHY</a>
     {% endcall %}
 
