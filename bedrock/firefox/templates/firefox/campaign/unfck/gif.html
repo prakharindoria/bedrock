@@ -1,0 +1,90 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+  # License, v. 2.0. If a copy of the MPL was not distributed with this
+  # file, You can obtain one at http://mozilla.org/MPL/2.0/. #}
+
+{% extends "firefox/base/base-protocol.html" %}
+
+{% from "macros-protocol.html" import card, hero with context %}
+
+{% block page_title %}Unfck{% endblock %}
+
+{% block page_css %}
+  {{ css_bundle('firefox-unfck') }}
+{% endblock %}
+
+{% block shared_meta %}
+    <title>Test</title>
+    <meta name="description" content="Test">
+    <meta name="twitter:card" content="player" />
+    <meta name="twitter:site" content="@firefox" />
+    <meta name="twitter:title" content="Test title" />
+    <meta name="twitter:description" content="Test description" />
+    <meta name="twitter:image" content="{{ request.META.HTTP_HOST }}{{ static('img/firefox/campaign/unfck/kermit.gif') }}" />
+    <meta name="twitter:player" content="{{ request.META.HTTP_HOST }}/en-US/firefox/campaign/unfck/gif/" />
+    <meta name="twitter:player:width" content="310" />
+    <meta name="twitter:player:height" content="350" />
+
+    {% include 'includes/canonical-url.html' %}
+    {% endblock shared_meta %}
+
+{% block body_id %}firefox-unfck{% endblock %}
+
+{% set referrals = '?utm_source=www.mozilla.org&utm_medium=referral&utm_campaign=firefox-unfck' %}
+
+{% block content %}
+<main role="main" class="t-unfck">
+
+  {% macro item(label=None, info=None, link_text=None, link_url=None, tw_text=None, tw_url=None, id=None, src=None, include_cta=False) -%}
+  {% set tw = 'https://www.twitter.com/intent/tweet?url=' + tw_url + '&text=' + tw_text %}
+  <div class="c-item-unfck" id="{{ id }}">
+    <h3>{{ label }}</h3>
+    <div class="c-item-img">
+      <ul class="c-item-share">
+        <!-- TODO: GA props -->
+        <li><a class="c-item-link js-twitter-share" target="_blank" rel="noopener noreferrer" href="{{ tw }}" data-link-type="social share" data-link-name="Twitter"><span class="c-item-icon twitter"></span><span class="c-item-text">Share</span></a></li>
+        <li><a class="c-item-link" href="{{ tw_url }}" download><span class="c-item-icon download"></span><span class="c-item-text">Download</span></a></li>
+        <li><button class="c-item-link js-copy-link" type="button" data-clipboard-text="{{ tw_url }}"><span class="c-item-icon link"></span><span class="c-item-text">Copy Link</span></button></li>
+      </ul>
+      <img class="c-item-gif" src="{{ src }}">
+    </div>
+    <p>{{ info }}</p>
+    {% if include_cta %}
+      {{ caller() }}
+    {% else %}
+      {# TODO, no referrals or rel if not external link #}
+      <p><a href="{{ link_url }}{{ referrals }}" class="mzp-c-cta-link" rel="external noopener" data-cta-type="link" data-cta-text="Checklist: {{ id }}">{{ link_text }}</a></p>
+    {% endif %}
+  </div>
+  {%- endmacro %}
+
+  <div class="mzp-l-content mzp-t-content-lg">
+
+    {% call item(
+      'Unfck voter supression',
+      'The more people who use independent tech like Firefox, the greater the unfck effect. Get yourself some unfcked search results, email providers, productivity docs and more.',
+      '',
+      '#',
+      'Test - link to a page on our site',
+      'https://' + request.META.HTTP_HOST + '/en-US/firefox/campaign/unfck/gif',
+      'page',
+      static('img/firefox/campaign/unfck/kermit.gif'),
+      include_cta=True
+      ) %}
+      <p>&nbsp;</p>
+      {% endcall %}
+
+  </div>
+  <div class="mzp-l-content mzp-t-content-lg">
+    <h3>Join Firefox in unfucking the internet</h3>
+    <p>Something about the campaign</p>
+    <p><a href="../" class="mzp-c-cta-link">Link back to main page</a></p>
+  </div>
+
+
+
+</main>
+{% endblock %}
+
+{% block js %}
+  {{ js_bundle('firefox-unfck') }}
+{% endblock %}

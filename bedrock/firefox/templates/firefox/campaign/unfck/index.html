@@ -18,15 +18,16 @@
 {% set referrals = '?utm_source=www.mozilla.org&utm_medium=referral&utm_campaign=firefox-unfck' %}
 
 {% macro item(title=None, info=None, link_text=None, link_url=None, tw_text=None, tw_url=None, id=None, src=None, include_cta=False) -%}
+{% set tw = 'https://www.twitter.com/intent/tweet?url=' + tw_url + '&text=' + tw_text %}
 <div class="c-item-unfck" id="{{ id }}">
   <h3 class="c-item-title">{{ title }}</h3>
   <div class="c-item-img">
     <img class="c-item-gif" src="{{ src }}">
     <ul class="c-item-share">
-      <!-- TODO: -->
-      <li><a class="c-item-link js-twitter-share" href="#"><span class="c-item-icon twitter"></span><span class="c-item-text">Share</span></a></li>
-      <li><a class="c-item-link" href="#" download><span class="c-item-icon download"></span><span class="c-item-text">Download GIF</span></a></li>
-      <li><button class="c-item-link js-copy-link" type="button"><span class="c-item-icon link"></span><span class="c-item-text">Copy Link to GIF</span></button></li>
+      <!-- TODO: GA props -->
+      <li><a class="c-item-link js-twitter-share" target="_blank" rel="noopener noreferrer" href="{{ tw }}" data-link-type="social share" data-link-name="Twitter"><span class="c-item-icon twitter"></span><span class="c-item-text">Share</span></a></li>
+      <li><a class="c-item-link" href="{{ src }}" download><span class="c-item-icon download"></span><span class="c-item-text">Download GIF</span></a></li>
+      <li><button class="c-item-link js-copy-link" type="button" data-clipboard-text="{{ request.META.HTTP_HOST }} + {{ src }}"><span class="c-item-icon link"></span><span class="c-item-text">Copy Link to GIF</span></button></li>
     </ul>
   </div>
   <div class="c-item-desc">
@@ -34,10 +35,11 @@
     {% if include_cta %}
       {{ caller() }}
     {% else %}
-      <p><a href="{{ link_url }}{{ referrals }}" class="mzp-c-cta-link">{{ link_text }}</a></p>
+      {# TODO, no referrals or rel if not external link #}
+      <p><a href="{{ link_url }}{{ referrals }}" class="mzp-c-cta-link" rel="external noopener" data-cta-type="link" data-cta-text="Checklist: {{ id }}">{{ link_text }}</a></p>
     {% endif %}
   </div>
-  <aside class="mzp-c-notification-bar mzp-t-success hidden">
+  <aside class="mzp-c-notification-bar mzp-t-success">
     <p>Link copied to clipboard.</p>
   </aside>
 </div>
@@ -60,6 +62,15 @@
   <h2 class="c-section-title">The Unfcking Checklist</h2>
 
   <div class="mzp-l-content mzp-t-content-lg">
+
+    <!--
+    <ul>
+      <li>Twitter: need share text, need decide gif link vs page link</li>
+      <li>Download: must be hosted on same domain</li>
+      <li>Link: get feedback working, include protocol</li>
+      <li> GA for all </li>
+    </ul>
+    -->
 
     {% call item(
       title='Take action online. Change the outcome offline.',
@@ -143,6 +154,51 @@
       )}}
     </div>
   </div>
+
+  <div class="mzp-l-content mzp-t-content-lg">
+    <h2 id="social-test" class="c-section-title">Social sharing testing</h2>
+
+    {% call item(
+      title='Link to our page',
+      info='Link this page. Looks something like this:',
+      tw_text='Im helping unfuck voter suppression by changing my location in Facebook.',
+      tw_url=request.META.HTTP_HOST + static('img/firefox/campaign/unfck/'),
+      id='page',
+      src=static('img/firefox/campaign/unfck/kermit.gif'),
+      include_cta=True
+      ) %}
+      <img src="{{ static('img/firefox/campaign/unfck/share/pageus.png') }}">
+      <a class="mzp-c-cta-link" href="#top">Brings user: back to this landing page</a>
+    {% endcall %}
+
+    {% call item(
+      title='Link to one page per GIF',
+      info='Create individual pages per GIF on mozilla.org. Looks something like this:',
+      tw_text='Im helping unfuck voter suppression by changing my location in Facebook.',
+      tw_url=request.META.HTTP_HOST + static('img/firefox/campaign/unfck/gif/'),
+      id='gif',
+      src=static('img/firefox/campaign/unfck/kermit.gif'),
+      include_cta=True
+      ) %}
+      <img src="{{ static('img/firefox/campaign/unfck/share/gifpageus.png') }}">
+      <a class="mzp-c-cta-link" href="gif/">Brings user: to a page with only one gif</a>
+    {% endcall %}
+
+    {% call item(
+      title='Link to Giphy page',
+      info='Link to the page on Giphy that has the GIF on it. Looks something like this:',
+      tw_text='Im helping unfuck voter suppression by changing my location in Facebook.',
+      tw_url='https://giphy.com/gifs/muppets-rachel-maddow-kermit-Zaej3GIZTzCI8',
+      id='giphy-page',
+      src=static('img/firefox/campaign/unfck/kermit.gif'),
+      include_cta=True
+      ) %}
+      <img src="{{ static('img/firefox/campaign/unfck/share/gifpagegiphy.png') }}">
+      <a class="mzp-c-cta-link" href="https://giphy.com/gifs/MozillaFoundation-transparent-f6tT6oBAAXQDk0ueab">Brings user: the gif page on GIPHY</a>
+    {% endcall %}
+
+  </div>
+
 </main>
 {% endblock %}
 

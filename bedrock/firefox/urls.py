@@ -176,6 +176,8 @@ urlpatterns = (
 if settings.DEV:
     urlpatterns += (
         page('firefox/campaign/unfck', 'firefox/campaign/unfck/index.html'),
+        page('firefox/campaign/unfck/gif', 'firefox/campaign/unfck/gif.html'),
+        page('firefox/campaign/unfck/frame', 'firefox/campaign/unfck/frame.html'),
     )
 else:
     urlpatterns += (
