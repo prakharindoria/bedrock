@@ -175,7 +175,7 @@ urlpatterns = (
 
 if settings.DEV:
     urlpatterns += (
-        page('firefox/campaign/unfck', 'firefox/campaign/unfck/index.html'),
+        page('firefox/campaign/unfck', 'firefox/campaign/unfck/index.html', active_locales=['en-US', 'de']),
     )
 else:
     urlpatterns += (

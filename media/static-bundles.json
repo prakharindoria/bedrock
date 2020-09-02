@@ -732,6 +732,12 @@
         "css/firefox/unfck.scss"
       ],
       "name": "firefox-unfck"
+    },
+    {
+      "files": [
+        "css/firefox/unfck.de.scss"
+      ],
+      "name": "firefox-unfck-de"
     }
   ],
   "js": [

@@ -1,0 +1,176 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. #}
+
+{% extends "firefox/base/base-protocol.html" %}
+
+{% from "macros-protocol.html" import card, call_out, hero with context %}
+
+{% block page_title %}Unfck the Internet - Aus Liebe zum Web{% endblock %}
+
+{% block page_desc %}Wenn das Internet genutzt wird, um Menschen online zu folgen und ihre persönlichen Daten zu sammeln, müssen Lösungen her, die uns alle besser schützen.{% endblock %}
+
+{% block page_image %}{{ static('img/firefox/campaign/unfck/og.png') }}{% endblock %}
+
+{% block page_css %}
+  {{ css_bundle('firefox-unfck') }}
+  {{ css_bundle('firefox-unfck-de') }}
+{% endblock %}
+
+{% block body_id %}firefox-unfck{% endblock %}
+
+{% set referrals = '?utm_source=www.mozilla.org&utm_medium=referral&utm_campaign=firefox-unfck' %}
+
+{% macro item(title=None, info=None, link_text=None, link_url=None, tw_text=None, tw_url=None, id=None, src=None, include_cta=False,
+              include_utms=True, share_text='Teilen', download_text='GIF downloaden', copy_text='GIF-Link kopieren', copy_success_text='Link in die Zwischenablage kopiert') -%}
+<div class="c-item-unfck" id="{{ id }}">
+  <h3 class="c-item-title">{{ title }}</h3>
+  <div class="c-item-img">
+    <img class="c-item-gif" src="{{ src }}">
+    <ul class="c-item-share">
+      <!-- TODO: -->
+      <li><a class="c-item-link js-twitter-share" href="#"><span class="c-item-icon twitter"></span><span class="c-item-text">{{ share_text }}</span></a></li>
+      <li><a class="c-item-link" href="#" download><span class="c-item-icon download"></span><span class="c-item-text">{{ download_text }}</span></a></li>
+      <li><button class="c-item-link js-copy-link" type="button"><span class="c-item-icon link"></span><span class="c-item-text">{{ copy_text }}</span></button></li>
+    </ul>
+  </div>
+  <div class="c-item-desc">
+    <p>{{ info }}</p>
+    {% if include_cta %}
+      {{ caller() }}
+    {% else %}
+      <p><a href="{{ link_url }}{% if include_utms %}{{ referrals }}{% endif %}" class="mzp-c-cta-link">{{ link_text }}</a></p>
+    {% endif %}
+  </div>
+  <aside class="mzp-c-notification-bar mzp-t-success hidden">
+    <p>{{ copy_success_text }}</p>
+  </aside>
+</div>
+{%- endmacro %}
+
+{% block content %}
+<main role="main" class="t-unfck">
+
+  {% call hero(
+    title='Unfck the Internet',
+    class='mzp-t-firefox mzp-t-dark',
+    include_cta=True,
+    heading_level=1)
+  %}
+    <div class="mzp-c-hero-desc">
+      <h2>Aus Liebe zum Web</h2>
+      <p>Wenn das Internet genutzt wird, um Milliarden von Menschen online zu folgen und ihre persönlichen Daten zu sammeln, müssen Lösungen her, die uns alle besser schützen.</p>
+      <p>Wer Firefox und andere unabhängige Optionen nutzt, gibt Tech-Monopolen schon einmal weniger Macht. Doch du kannst noch mehr tun:</p>
+    </div>
+    {{ download_firefox(alt_copy='Download Firefox', download_location='primary cta') }}
+  {% endcall %}
+
+  <h2 class="c-section-title">Die Unfuck-Checkliste</h2>
+
+  <div class="mzp-l-content mzp-t-content-lg">
+
+    {% call item(
+      title='Unfck Facebook',
+      info='Hindere Facebook daran, dir durch’s Web zu folgen und deine Daten zu sammeln. (Facebook sammelt deine Daten selbst dann, wenn du gar keinen Account hast.)',
+      link_text='Hol dir den Facebook Container ',
+      link_url=url('firefox.facebookcontainer.index'),
+      tw_text='text_test',
+      tw_url='https://bukk.it/firecode.gif',
+      id='facebook-container',
+      src=static('img/firefox/campaign/unfck/firecode.gif'),
+      include_utms=False
+    ) %}{% endcall %}
+
+    {% call item(
+        title='Unfck Desinformation',
+        info='Fehlinformationen machen immer häufiger und schneller die Runde. Mit ein paar einfachen Tipps, kannst du dich und andere besser davor schützen.',
+        link_text='Zu den Tipps',
+        link_url='#TODO',
+        tw_text='text_test',
+        tw_url='https://bukk.it/howidocode.gif',
+        id='desinformation',
+        src=static('img/firefox/campaign/unfck/popcorn.gif')
+      ) %}{% endcall %}
+
+      {% call item(
+        title='Unfck Hate Speech',
+        info='Wie wir online miteinander umgehen, wirkt sich oft stark auf unser Leben offline aus. Erfahre mehr zum Thema Hassrede und wie wir besser damit umgehen können.',
+        link_text='Mehr zum Thema',
+        link_url='https://blog.mozilla.org/firefox/de/hass-im-web-was-koennen-wir-gegen-hate-speech-tun/',
+        tw_text='text_test',
+        tw_url='https://giphy.com/gifs/muppets-rachel-maddow-kermit-Zaej3GIZTzCI8',
+        id='hate-speech',
+        src=static('img/firefox/campaign/unfck/kermit.gif')
+      ) %}{% endcall %}
+
+      {% call item(
+        title='Netflix & change',
+        info='Schau dir die Dokumentation <em>“The Social Dilemma”</em> mit unseren Freunden des Center of Human Tech an und erfahre mehr darüber, wie Milliarden von Menschen zur Handelsware der Konzerne werden.'|safe,
+        link_text='Zur Doku',
+        link_url='#TODO',
+        tw_text='text_test',
+        tw_url='https://giphy.com/gifs/muppets-rachel-maddow-kermit-Zaej3GIZTzCI8',
+        id='hate-speech',
+        src=static('img/firefox/campaign/unfck/firecode.gif')
+      ) %}{% endcall %}
+
+      {% call item(
+        title='Sei Teil des Unfck-Effekts',
+        info='Je mehr wir darüber sprechen, was wir im Internet ändern müssen, desto größer der Unfck-Effekt. Sag uns und der Welt, was dich am Internet nervt und teile deine Meinung auf Twitter.',
+        tw_text='text_test',
+        tw_url=request.META.HTTP_HOST + static('img/firefox/campaign/unfck/fuckthis.gif'),
+        id='watch',
+        src=static('img/firefox/campaign/unfck/fuckthis.gif'),
+        include_cta=True
+        ) %}
+        <div class="c-tell">
+          <textarea class="c-tell-input" placeholder="TODO: interaction"></textarea>
+          <button class="c-tell-button mzp-c-button mzp-t-secondary">Teilen</button>
+        </div>
+      {% endcall %}
+  </div>
+
+  <div class="mzp-l-content mzp-t-content-xl">
+    <div class="mzp-l-card-half">
+      {{ card(
+        title='Unterstütze ein Non-Profit',
+        ga_title='card-non-profit',
+        image_url=None,
+        link_url=url('mozorg.about.manifesto'),
+        heading_level=3,
+        desc='Firefox wurde 2002 gegründet, um Tech-Monopolen nicht das Feld zu überlassen. Hinter Firefox steht die gemeinnützige Organisation Mozilla. Firefox kann unabhängig agieren und entwickelt Produkte für Menschen, nicht für Profit. Der Firefox Browser läuft nicht auf Chromium, wir verkaufen keine User-Daten und wir halten auch andere Unternehmen davon ab, dies zu tun.',
+        cta='Mehr über Mozilla'
+      )}}
+
+      {{ card(
+        title='Mehr Schutz. Mehr Power. Weniger Müll.',
+        ga_title='card-firefox',
+        image_url=None,
+        link_url=url('firefox.new'),
+        heading_level=3,
+        desc='Der Firefox Browser ist von Grund auf auf Privatsphäre getrimmt. Das schützt dich nicht nur beim Surfen, sondern macht dich auch schneller. Nervige Werbung und Online-Tracker werden geblockt und ziehen nicht länger deine Performance herunter.',
+        cta='Hol dir Firefox'
+      )}}
+    </div>
+  </div>
+
+  {% call call_out(
+    title='Bleib auf dem Laufenden über:',
+    class='call-out-instagram',
+    include_cta=True
+  ) %}
+    <ul>
+      <li>🥰 Menschen & Organisationen, die sich für ein faires Web einsetzen,</li>
+      <li>🙌 Themen, die das Web bedeuten,</li>
+      <li>💡 Tipps, wie du dich online schützen kannst.</li>
+    </ul>
+
+    <p><a class="mzp-c-cta-link" href="https://mzl.la.com/instagram">mzl.la.com/instagram</a></p>
+  {% endcall %}
+
+</main>
+{% endblock %}
+
+{% block js %}
+  {{ js_bundle('firefox-unfck') }}
+{% endblock %}

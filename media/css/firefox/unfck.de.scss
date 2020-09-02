@@ -1,0 +1,45 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+$font-path: '/media/fonts';
+$image-path: '/media/protocol/img';
+
+@import '../../protocol/css/includes/lib';
+@import '../../protocol/css/components/call-out';
+
+// xs
+$v-grid-xs: $layout-md;
+$h-grid-xs: $layout-xs;
+
+//md
+$v-grid-md: $layout-xl / 2;
+$h-grid-md: 64px;
+
+//lg
+$v-grid-lg: 192px / 2;
+$h-grid-lg: 80px;
+
+
+.call-out-instagram {
+    background-color: transparent;
+
+    .mzp-c-call-out-title {
+        color: $color-white;
+    }
+
+    .mzp-c-cta-link {
+        background: none;
+        padding: 0;
+    }
+
+    @media #{$mq-lg} {
+        padding-bottom: $v-grid-lg;
+    }
+}
+
+.mzp-c-card {
+    @media #{$mq-lg} {
+        margin-bottom: $v-grid-md;
+    }
+}
