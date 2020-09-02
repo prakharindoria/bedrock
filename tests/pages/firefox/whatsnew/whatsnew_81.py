@@ -12,12 +12,6 @@ class FirefoxWhatsNew81Page(BasePage):
 
     URL_TEMPLATE = '/{locale}/firefox/81.0/whatsnew/all/{params}'
 
-    _qr_code_locator = (By.CSS_SELECTOR, '#firefox-qr')
-
     @property
     def send_to_device(self):
         return SendToDevice(self)
-
-    @property
-    def is_qr_code_displayed(self):
-        return self.is_element_displayed(*self._qr_code_locator)
